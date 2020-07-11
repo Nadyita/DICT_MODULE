@@ -1,6 +1,6 @@
 <?php
 
-namespace Budabot\User\Modules;
+namespace Budabot\User\Modules\DICT_MODULE;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -9,8 +9,7 @@ use AL\PhpWndb\WordNet;
 use AL\PhpWndb\Model\Synsets\SynsetInterface;
 
 /**
- * Authors:
- *	- Nadyita (RK5)
+ * @author Nadyita (RK5) <nadyita@hodorraid.org>
  *
  * @Instance
  *
