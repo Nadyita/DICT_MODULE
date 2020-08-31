@@ -1,12 +1,19 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Budabot\User\Modules\DICT_MODULE;
+namespace Nadybot\User\Modules\DICT_MODULE;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use AL\PhpWndb\DiContainerFactory;
-use AL\PhpWndb\WordNet;
-use AL\PhpWndb\Model\Synsets\SynsetInterface;
+use AL\PhpWndb\{
+	DiContainerFactory,
+	WordNet,
+	Model\Synsets\SynsetInterface,
+};
+use Nadybot\Core\{
+	CommandReply,
+	Nadybot,
+	Text,
+};
 
 /**
  * @author Nadyita (RK5) <nadyita@hodorraid.org>
@@ -28,19 +35,13 @@ class DictController {
 	 * Set automatically by module loader.
 	 * @var string $moduleName
 	 */
-	public $moduleName;
+	public string $moduleName;
 
-	/**
-	 * @var \Budabot\Core\Budabot $chatBot
-	 * @Inject
-	 */
-	public $chatBot;
+	/** @Inject */
+	public Nadybot $chatBot;
 
-	/**
-	 * @var \Budabot\Core\Text $text
-	 * @Inject
-	 */
-	public $text;
+	/** @Inject */
+	public Text $text;
 
 	protected function getSynsetText(SynsetInterface $synset, string $search): string {
 		$indent = "\n<black>______<end>";
@@ -74,14 +75,14 @@ class DictController {
 	 * @param string                     $message The full command received
 	 * @param string                     $channel Where did the command come from (tell, guild, priv)
 	 * @param string                     $sender  The name of the user issuing the command
-	 * @param \Budabot\Core\CommandReply $sendto  Object to use to reply to
+	 * @param \Nadybot\Core\CommandReply $sendto  Object to use to reply to
 	 * @param string[]                   $args    The arguments to the dict-command
 	 * @return void
 	 *
 	 * @HandlesCommand("dict")
 	 * @Matches("/^dict\s+(.+)$/i")
 	 */
-	public function dictCommand($message, $channel, $sender, $sendto, $args) {
+	public function dictCommand(string $message, string $channel, string $sender, CommandReply $sendto, array $args): void {
 		$containerFactory = new DiContainerFactory();
 		$container = $containerFactory->createContainer();
 
